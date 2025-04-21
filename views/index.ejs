@@ -1,0 +1,19 @@
+<% layout('layout') %>
+<h1>Comments</h1>
+<% if (currentUser) { %>
+  <form action="/comment" method="POST">
+    <textarea name="text" required placeholder="Write a comment..."></textarea>
+    <button type="submit">Post</button>
+  </form>
+<% } else { %>
+  <p><a href="/login">Login</a> to post a comment.</p>
+<% } %>
+<ul>
+  <% comments.forEach(c => { %>
+    <li>
+      <strong><%= c.user ? c.user.username : 'Deleted user' %></strong>:
+      <%= c.text %>
+      <small>(<%= c.createdAt.toLocaleString() %>)</small>
+    </li>
+  <% }) %>
+</ul>
